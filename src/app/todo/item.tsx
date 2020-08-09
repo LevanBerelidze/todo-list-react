@@ -13,7 +13,7 @@ export interface ITodoItemProps extends ITodoItem {
 	onDelete: (id: string) => void;
 }
 
-export const TodoItem: React.FC<ITodoItemProps> = props => {
+export const TodoItem: React.FC<ITodoItemProps> = React.memo(props => {
 	const [isHovering, setHovering] = useState(false);
 
 	const handleMouseEnter = useCallback(() => {
@@ -58,4 +58,4 @@ export const TodoItem: React.FC<ITodoItemProps> = props => {
 			</ListItem>
 		</div>
 	);
-};
+});

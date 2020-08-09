@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ITodoItem } from './interfaces';
-import { fetchData } from './fetch-data';
+import { loadPersistentData, savePersistentData } from './data-persistance';
 import { TodoList } from './list';
 
 export const TodoListContainer: React.FC = () => {
@@ -8,7 +8,7 @@ export const TodoListContainer: React.FC = () => {
 	const [todos, setTodos] = useState([] as ITodoItem[]);
 
 	useEffect(() => {
-		fetchData().then(data => {
+		loadPersistentData().then(data => {
 			setTodos(data);
 			setLoaded(true);
 		});
@@ -34,6 +34,7 @@ export const TodoListContainer: React.FC = () => {
 	if (!isLoaded) {
 		return <p>Loading...</p>;
 	}
+	savePersistentData(todos);
 
 	return (
 		<TodoList
